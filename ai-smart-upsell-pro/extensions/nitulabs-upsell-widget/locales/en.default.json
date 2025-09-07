@@ -1,0 +1,8 @@
+{
+    "blocks": {
+        "nitulabs-upsell-widget": {
+            "title": "You may also like",
+            "loading": "Loading recommendations..."
+        }
+    }
+}

@@ -1,0 +1,44 @@
+{%- comment -%}
+AI Smart Upsell Pro — Product Recommendations Block
+Rendered natively in Shopify theme
+{%- endcomment -%}
+
+{% assign cartId = cart.id | default: 'no-cart' %}
+
+<div class="nitulabs-upsell-widget"
+     data-shop="{{ shop.permanent_domain }}"
+     data-product-id="{{ product.id }}"
+     data-visitor-id="{{ customer.id | default: 'guest-' | append: 'visitor-' | append: cartId }}"
+     data-api-url="https://shopifybackend.bcstdr.site/api/upsells"
+     data-click-url="https://shopifybackend.bcstdr.site/api/upsell-clicks"
+     data-impression-url="https://shopifybackend.bcstdr.site/api/upsell-impressions">
+    {% if block.settings.title %}
+        <h2 class="nitulabs-upsell-title">{{ block.settings.title }}</h2>
+    {% else %}
+        <h3 class="nitulabs-upsell-title">{{ 'blocks.nitulabs-upsell-widget.title' | t }}</h3>
+    {% endif %}
+    <div class="nitulabs-upsell-list grid grid-cols-2 sm:grid-cols-3 gap-4 mt-4">
+        <div class="nitulabs-upsell-placeholder col-span-full text-center py-8">
+            {{ 'blocks.nitulabs-upsell-widget.loading' | t }}
+        </div>
+    </div>
+</div>
+
+{{ 'nitulabs-upsell-widget.js' | asset_url | script_tag }}
+{{ 'nitulabs-upsell-widget.css' | asset_url | stylesheet_tag }}
+
+{% schema %}
+{
+    "name": "AI Upsell Recommendations",
+    "target": "section",
+    "templates": ["product"],
+    "settings": [
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Section Title",
+            "default": "You may also like"
+        }
+    ]
+}
+{% endschema %}
